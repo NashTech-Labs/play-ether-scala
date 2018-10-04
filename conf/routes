@@ -1,0 +1,16 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.BalanceController.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Get balance
+POST     /getBalance                           controllers.BalanceController.getBalance()
+GET     /getBalance                           controllers.BalanceController.getBalancePage()
+POST     /transfer                             controllers.TransferController.transferFunds()
+GET     /transfer                             controllers.TransferController.getTransferPage()

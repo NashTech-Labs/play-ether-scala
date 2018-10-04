@@ -1,0 +1,17 @@
+@(receipt: Option[String] = None)(implicit request: RequestHeader)
+@import helper._
+@main("Ether Client") {
+<h1>Welcome to Ether Transfer!</h1>
+<form action="@routes.TransferController.transferFunds()" method="POST">
+  @CSRF.formField
+  Beneficiary Address: <input type="text" name="accountTo">
+  <input type="text" name="amount">
+  <input type="submit" />
+</form>
+@if(receipt.isDefined) {
+<p>Transaction Receipt: @receipt.get</p>
+} else {
+<b>Transaction Failed!! Invalid Address or Amount !!</b>
+<a href="@routes.BalanceController.getBalancePage()"> Check Balance </a>
+}
+}

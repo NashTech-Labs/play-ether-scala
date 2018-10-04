@@ -1,0 +1,16 @@
+@(balance: Option[String] = None)(implicit request: RequestHeader)
+@import helper._
+@main("Ether Client") {
+<h1>Welcome to Ether Balance!</h1>
+<form action="@routes.BalanceController.getBalance()" method="POST">
+    @CSRF.formField
+    Public TestNet Address: <input type="text" name="publicAddress"> <input type="submit"/>
+</form>
+@if(balance.isDefined) {
+<p>Ether Available: @balance.get</p>
+} else {
+<b>Invalid Address!!</b>
+}
+<br/>
+<a href="@routes.TransferController.transferFunds()"> Transfer Funds</a>
+}
