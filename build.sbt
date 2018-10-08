@@ -12,4 +12,5 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2
 libraryDependencies += "org.web3j" % "core" % "3.5.0"
 libraryDependencies += "org.elasticsearch.client" % "transport" % "6.4.0"
 libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
+libraryDependencies += "org.scala-lang.modules" % "scala-java8-compat_2.12" % "0.9.0"
 libraryDependencies += specs2 % Test

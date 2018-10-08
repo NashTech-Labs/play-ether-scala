@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject._
 import play.api.mvc._
-import service.{IndexingService, TransferService}
+import services.{IndexingService, TransferService}
 import util.ConfigProvider
 import util.PimpMyTransactions.TransactionReceiptFormatter
 
@@ -31,7 +31,7 @@ class TransferController @Inject()(cc: ControllerComponents, transferService: Tr
   }
 
   def getTransferPage() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.transfer())
+    Ok(views.html.transfer(Some("Submit details to Transfer funds!")))
   }
 
 

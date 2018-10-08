@@ -3,7 +3,7 @@ package demo
 import java.math.BigDecimal
 
 import factory.{ElasticClientFactory, Web3ClientFactory}
-import service.{BalanceService, TransferService}
+import services.{BalanceService, TransferService}
 import com.typesafe.config.ConfigFactory
 import org.elasticsearch.index.query.QueryBuilders
 import org.web3j.crypto.{Credentials, WalletUtils}

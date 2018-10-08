@@ -2,7 +2,8 @@ package controllers
 
 import javax.inject._
 import play.api.mvc._
-import service.BalanceService
+import services.BalanceService
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.util.Try
 
@@ -14,13 +15,11 @@ import scala.util.Try
 class BalanceController @Inject()(cc: ControllerComponents, balanceService: BalanceService) extends AbstractController(cc) {
 
 
-  def getBalance() = Action { implicit request: Request[AnyContent] =>
-    val publicAddress = request.body.asFormUrlEncoded.get("publicAddress").head
-    Try {
-      balanceService.getBalance(publicAddress)
-    }.map { balance =>
+  def getBalance() = Action.async { implicit request: Request[AnyContent] =>
+      balanceService.getBalance(request.body.asFormUrlEncoded.get("publicAddress").head)
+     .map { balance =>
       Ok(views.html.balance(Option(balance.toString())))
-    }.getOrElse(Ok(views.html.balance()))
+    }
   }
 
   def getBalancePage() = Action { implicit request: Request[AnyContent] =>
