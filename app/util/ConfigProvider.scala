@@ -9,7 +9,7 @@ object ConfigProvider {
   lazy val config:Config = ConfigFactory.load("application.conf").getConfig("transfer")
   lazy val WALLET_PASSWORD: String = System.getProperty("password")
   lazy val WALLET_SOURCE: String = config.getString("walletsource")
-  lazy val credentials: Credentials = WalletUtils.loadCredentials("use_your_own", WALLET_SOURCE)
+  lazy val credentials: Credentials = WalletUtils.loadCredentials("rops@12er", WALLET_SOURCE)
   lazy val INFURA_CLIENT: String = config.getString("infura")
   lazy val ACCOUNT_TO: String = config.getString("accountto")
   lazy val ACCOUNT_FROM: String = credentials.getAddress

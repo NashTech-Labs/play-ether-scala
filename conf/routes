@@ -4,13 +4,16 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.BalanceController.index
+GET     /                           controllers.BalanceController.getBalance()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 # Get balance
++ nocsrf
 POST     /getBalance                           controllers.BalanceController.getBalance()
-GET     /getBalance                           controllers.BalanceController.getBalancePage()
++ nocsrf
 POST     /transfer                             controllers.TransferController.transferFunds()
++ nocsrf
 GET     /transfer                             controllers.TransferController.getTransferPage()

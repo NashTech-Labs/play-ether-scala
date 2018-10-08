@@ -1,7 +1,6 @@
 package controllers
 
 import javax.inject._
-import play.api._
 import play.api.mvc._
 import service.BalanceService
 
@@ -15,10 +14,6 @@ import scala.util.Try
 class BalanceController @Inject()(cc: ControllerComponents, balanceService: BalanceService) extends AbstractController(cc) {
 
 
-  def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.balance(Some("0")))
-  }
-
   def getBalance() = Action { implicit request: Request[AnyContent] =>
     val publicAddress = request.body.asFormUrlEncoded.get("publicAddress").head
     Try {
@@ -29,6 +24,6 @@ class BalanceController @Inject()(cc: ControllerComponents, balanceService: Bala
   }
 
   def getBalancePage() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.balance())
+    Ok(views.html.balance(Some("Submit an address to get blance")))
   }
 }
