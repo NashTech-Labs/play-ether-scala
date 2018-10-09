@@ -6,18 +6,15 @@ import org.scalatestplus.play.guice._
 import play.api.test.CSRFTokenHelper._
 import play.api.test.Helpers._
 import play.api.test._
-import services.{IndexingService, TransferService}
+import services.TransferService
 
 class TransferControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting with MockitoSugar {
-
-
 
   "TransferController" should {
 
     val publicAddress = "testaddress"
     val mockedTransferService = mock[TransferService]
-    val mockedIndexingService = mock[IndexingService]
-    val controller = new TransferController(stubControllerComponents(), mockedTransferService, mockedIndexingService)
+    val controller = new TransferController(stubControllerComponents(), mockedTransferService)
 
 
     "render the transfer page from a new instance of controller" in {

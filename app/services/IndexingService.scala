@@ -12,14 +12,4 @@ class IndexingService @Inject()(transportClient: TransportClient) {
     transportClient.prepareIndex(indexName, indexType, id.orNull)
       .setSource(source, XContentType.JSON).get()
   }
-
-  def IsIndexPresent(indexName: String): Boolean = {
-    transportClient
-      .admin()
-      .cluster()
-      .health(new ClusterHealthRequest(indexName).waitForYellowStatus())
-      .actionGet()
-      .getIndices
-      .containsKey(indexName)
-  }
 }

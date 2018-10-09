@@ -1,7 +1,5 @@
 package controllers
 
-import java.math.BigInteger
-
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
 import org.scalatestplus.play._
@@ -11,7 +9,6 @@ import play.api.test.Helpers._
 import play.api.test._
 import services.BalanceService
 import scala.concurrent.ExecutionContext.Implicits.global
-
 import scala.concurrent.Future
 
 class BalanceControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting with MockitoSugar {
@@ -42,15 +39,16 @@ class BalanceControllerSpec extends PlaySpec with GuiceOneAppPerTest with Inject
       contentAsString(balance) must include ("Welcome to Ether Balance!")
       contentAsString(balance) must include ("Ether Available: 0")
     }
-//
-//    "handle get balnace request and render the balance for invalid address" in {
-//      when(mockedBalanceService.getBalance("invalidaddress")).thenReturn(null)
-//      val balance = controller.getBalance().apply(FakeRequest(POST, "/getBalance").withFormUrlEncodedBody("csrfToken"
-//        -> "9c48f081724087b31fcf6099b7eaf6a276834cd9-1487743474314-cda043ddc3d791dc500e66ea", "publicAddress" -> "invalidaddress").withCSRFToken)
-//      status(balance) mustBe OK
-//      contentType(balance) mustBe Some("text/html")
-//      contentAsString(balance) must include ("Welcome to Ether Balance!")
-//      contentAsString(balance) must include ("Invalid Address!!")
-//    }
+
+    "handle get balnace request and render the error for invalid address" in {
+      when(mockedBalanceService.getBalance("invalidaddress")).thenReturn(Future
+        .failed(new Exception("Value must be in format 0x[1-9]+[0-9]* or 0x0")))
+      val balance = controller.getBalance().apply(FakeRequest(POST, "/getBalance").withFormUrlEncodedBody("csrfToken"
+        -> "9c48f081724087b31fcf6099b7eaf6a276834cd9-1487743474314-cda043ddc3d791dc500e66ea", "publicAddress" -> "invalidaddress").withCSRFToken)
+      status(balance) mustBe OK
+      contentType(balance) mustBe Some("text/html")
+      contentAsString(balance) must include ("Welcome to Ether Balance!")
+      contentAsString(balance) must include ("Invalid Address")
+    }
   }
 }
